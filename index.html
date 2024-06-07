@@ -4,11 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>To do list</title>
+    <title>Todo list</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tiny5&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/12da1c58c6.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    
-    <h1>To do List</h1>
-    
+    <div class="main-container">
+        <div class="internal-container">
+            <h1>Todo list</h1>
+                <div class="internal-container-todo">
+                    <input id="searchbar" 
+                    type="text" 
+                    name="search" 
+                    placeholder="Find or add element...">
+                    <button class="btn-click" onClick="searchForItem()">search</button>
+                    <button class="btn-click"onClick="addItemToList()">add</button>
+                </div>
+            <ul id="list"></ul>
+        </div>
+        <div class="info"></div> 
+    </div>
+    <script src="script.js"></script>
 </body>
-</html>
