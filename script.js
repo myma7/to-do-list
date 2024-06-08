@@ -15,13 +15,8 @@ document.addEventListener("DOMContentLoaded", function() {
             let createElementLiForList = document.createElement("li");
             createElementLiForList.className = "single-element";
             createElementLiForList.innerHTML = ` ${elements[i]} <button class="btn-click-simple remove-btn">❌</button> 
-            <button  class="btn-click-simple done-btn">✅</button> <button  class="btn-click-simple edit-btn">✏️</button>`;
+            <button class="btn-click-simple done-btn">✅</button> <button class="btn-click-simple edit-btn">✏️</button>`;
             listElements.appendChild(createElementLiForList);
-
-            let editButton = createElementLiForList.querySelector('.edit-btn');
-            editButton.addEventListener("click", function() {
-            editElement(createElementLiForList); 
-        });
         }
     }
 
@@ -78,46 +73,46 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     function editElement(listItem) {
-    let doneButton = listItem.querySelector('.done-btn');
-    let removeButton = listItem.querySelector('.remove-btn');
-    doneButton.style.display = 'none';
-    removeButton.style.display = 'none';
+        let doneButton = listItem.querySelector('.done-btn');
+        let removeButton = listItem.querySelector('.remove-btn');
+        doneButton.style.display = 'none';
+        removeButton.style.display = 'none';
 
-    let currentText = listItem.innerText.replace(/❌|✅|✏️/g, '').trim();
+        let currentText = listItem.innerText.replace(/❌|✅|✏️/g, '').trim();
 
-    let input = document.createElement('input');
-    input.type = 'text';
-    input.value = currentText;
+        let input = document.createElement('input');
+        input.type = 'text';
+        input.value = currentText;
 
-    listItem.innerHTML = '';
-    listItem.appendChild(input);
+        listItem.innerHTML = '';
+        listItem.appendChild(input);
 
-    let saveButton = document.createElement('button');
-    saveButton.innerText = 'save';
-    saveButton.className = 'btn-click';
-    saveButton.addEventListener("click", function() {
-        saveEdit(listItem, input, doneButton, removeButton);
-    });
-    listItem.appendChild(saveButton);
+        let saveButton = document.createElement('button');
+        saveButton.innerText = 'save';
+        saveButton.className = 'btn-click';
+        saveButton.addEventListener("click", function() {
+            saveEdit(listItem, input, doneButton, removeButton);
+        });
+        listItem.appendChild(saveButton);
     }
 
     function saveEdit(listItem, input, doneButton, removeButton) {
         let newValue = input.value;
-    
+
         let newText = document.createTextNode(newValue);
         listItem.innerHTML = '';
         listItem.appendChild(newText);
-    
+
         listItem.appendChild(removeButton);
         listItem.appendChild(doneButton);
         doneButton.style.display = 'inline';
         removeButton.style.display = 'inline';
-    
+
         let editButton = document.createElement('button');
         editButton.innerText = '✏️';
         editButton.className = 'btn-click-simple edit-btn';
         editButton.addEventListener("click", function() {
-            editElement(editButton);
+            editElement(listItem);
         });
         listItem.appendChild(editButton);
     }
@@ -146,6 +141,13 @@ document.addEventListener("DOMContentLoaded", function() {
     addBtn.addEventListener("click", addItemToList);
     searchBtn.addEventListener("click", searchForItem);
     searchBar.addEventListener("keyup", searchForItem);
+
+    listElements.addEventListener("click", function(event) {
+        if (event.target.classList.contains("edit-btn")) {
+            let listItem = event.target.parentElement;
+            editElement(listItem);
+        }
+    });
 
     addRandomElements();
     emptylist();
