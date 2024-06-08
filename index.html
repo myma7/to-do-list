@@ -8,23 +8,27 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Tiny5&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/12da1c58c6.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="main-container">
+    <main class="main-container">
         <h1>Todo list</h1>
-        <div class="internal-container">
+        <section class="internal-container">
+            <form id="todo-form">
                 <div class="internal-container-todo">
-                    <input id="searchbar" 
-                    type="text" 
-                    name="search" 
-                    placeholder="Find or add element...">
-                    <button class="btn-click" onClick="searchForItem()">search</button>
-                    <button class="btn-click"onClick="addItemToList()">add</button>
+                    <input id="searchbar" type="text" name="search" placeholder="Find or add element...">
+                    <div class="btn-search-add">
+                        <button id="search-btn" class="btn-click" type="button">search</button>
+                        <button id="add-btn" class="btn-click" type="button">add</button>
+                    </div>
                 </div>
+            </form>
             <ul id="list"></ul>
-        </div>
-        <div class="info"></div> 
-    </div>
+            <div class="info"></div> 
+        </section>
+    </main>
     <script src="script.js"></script>
 </body>

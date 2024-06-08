@@ -1,55 +1,87 @@
-var info = document.querySelector(".info");
-var listElements = document.querySelector("#list");
-var searchbar = document.querySelector("#searchbar");
+document.addEventListener("DOMContentLoaded", function() {
+    const info = document.querySelector(".info");
+    const listElements = document.querySelector("#list");
+    const searchBar = document.querySelector("#searchbar");
+    const searchBtn = document.querySelector("#search-btn");
+    const addBtn = document.querySelector("#add-btn");
 
-var listForAllElementsInLists = [];
+    let listForAllElementsInLists = [];
 
-function addRandomElements() {
-    var elements = ["Tidy up the clothes", "Take out the trash", "Wash the dishes", "Spread the laundry"];
-    listForAllElementsInLists.push(...elements);
+    function addRandomElements() {
+        const elements = ["Tidy up the clothes", "Take out the trash", "Wash the dishes", "Spread the laundry"];
+        listForAllElementsInLists.push(...elements);
 
-    for (let i = 0; i < elements.length; i++) {
-        let createElementLiForList = document.createElement("li");
-        createElementLiForList.className = "single-element";
-        createElementLiForList.innerHTML = ` ${elements[i]} <button class="btn-click-simple" onclick="removeElement(this)">❌</button> 
-        <button  class="btn-click-simple" onclick="doneElement(this)">✅</button> <button  class="btn-click-simple" onclick="editElement(this)">✏️</button>`;
-        listElements.appendChild(createElementLiForList);
+        for (let i = 0; i < elements.length; i++) {
+            let createElementLiForList = document.createElement("li");
+            createElementLiForList.className = "single-element";
+            createElementLiForList.innerHTML = ` ${elements[i]} <button class="btn-click-simple remove-btn">❌</button> 
+            <button  class="btn-click-simple done-btn">✅</button> <button  class="btn-click-simple edit-btn">✏️</button>`;
+            listElements.appendChild(createElementLiForList);
+
+            let editButton = createElementLiForList.querySelector('.edit-btn');
+            editButton.addEventListener("click", function() {
+            editElement(createElementLiForList); 
+        });
+        }
     }
-}
 
-function addItemToList() {
-    let newItem = searchbar.value.trim();
-    if (newItem) {
-        listForAllElementsInLists.push(newItem);
+    function addItemToList() {
+        let newItem = searchBar.value.trim();
+        if (newItem) {
+            listForAllElementsInLists.push(newItem);
 
-        let createElementLiForList = document.createElement("li");
-        createElementLiForList.className = "single-element";
-        createElementLiForList.innerHTML = `${newItem} <button  class="btn-click-simple" onclick="removeElement(this)">❌</button> 
-        <button  class="btn-click-simple" onclick="doneElement(this)">✅</button> <button  class="btn-click-simple" onclick="editElement(this)">✏️</button>`;
-        listElements.appendChild(createElementLiForList);
+            let createElementLiForList = document.createElement("li");
+            createElementLiForList.className = "single-element";
+            createElementLiForList.innerHTML = `${newItem} <button  class="btn-click-simple remove-btn">❌</button> 
+            <button  class="btn-click-simple done-btn">✅</button> <button  class="btn-click-simple edit-btn">✏️</button>`;
+            listElements.appendChild(createElementLiForList);
 
-        searchbar.value = "";
+            searchBar.value = "";
+            searchBar.focus();
+        }
+        emptylist();
     }
-}
 
-function doneElement(button) {
-    let listItem = button.parentElement;
-    listItem.style.textDecoration = "line-through";
-}
+    function doneElement(button) {
+        let listItem = button.parentElement;
+        listItem.style.textDecoration = "line-through";
 
-function removeElement(button) {
-    let listItem = button.parentElement;
-    listItem.remove();
-}
+        let undoButton = document.createElement("button");
+        undoButton.textContent = "↩️";
+        undoButton.className = 'btn-click';
 
-function editElement(button) {
-    let listItem = button.parentElement;
+        undoButton.addEventListener("click", function() {
+            listItem.style.textDecoration = "none";
+            listItem.removeChild(undoButton);
+        });
 
-    let doneButton = listItem.querySelector('button[onclick="doneElement(this)"]');
-    let removeButton = listItem.querySelector('button[onclick="removeElement(this)"]');
+        listItem.appendChild(undoButton);
+    }
+
+    listElements.addEventListener("click", function(event) {
+        if (event.target.classList.contains("done-btn")) {
+            doneElement(event.target);
+        }
+    });
+
+    function removeElement(button) {
+        let listItem = button.parentElement;
+        listItem.remove();
+        listForAllElementsInLists = listForAllElementsInLists.filter(item => item !== listItem.innerText.replace(/❌|✅|✏️/g, '').trim());
+        emptylist(); 
+    }
+
+    listElements.addEventListener("click", function(event) {
+        if (event.target.classList.contains("remove-btn")) {
+            removeElement(event.target);
+        }
+    });
+
+    function editElement(listItem) {
+    let doneButton = listItem.querySelector('.done-btn');
+    let removeButton = listItem.querySelector('.remove-btn');
     doneButton.style.display = 'none';
     removeButton.style.display = 'none';
-
 
     let currentText = listItem.innerText.replace(/❌|✅|✏️/g, '').trim();
 
@@ -61,49 +93,60 @@ function editElement(button) {
     listItem.appendChild(input);
 
     let saveButton = document.createElement('button');
-    saveButton.innerText = 'Save';
-    saveButton.className = 'btn-click ';
-    saveButton.onclick = function() {
+    saveButton.innerText = 'save';
+    saveButton.className = 'btn-click';
+    saveButton.addEventListener("click", function() {
         saveEdit(listItem, input, doneButton, removeButton);
-    };
+    });
     listItem.appendChild(saveButton);
+    }
 
-    console.log('Editing');
-}
+    function saveEdit(listItem, input, doneButton, removeButton) {
+        let newValue = input.value;
+    
+        let newText = document.createTextNode(newValue);
+        listItem.innerHTML = '';
+        listItem.appendChild(newText);
+    
+        listItem.appendChild(removeButton);
+        listItem.appendChild(doneButton);
+        doneButton.style.display = 'inline';
+        removeButton.style.display = 'inline';
+    
+        let editButton = document.createElement('button');
+        editButton.innerText = '✏️';
+        editButton.className = 'btn-click-simple edit-btn';
+        editButton.addEventListener("click", function() {
+            editElement(editButton);
+        });
+        listItem.appendChild(editButton);
+    }
 
-function saveEdit(listItem, input, doneButton, removeButton) {
-    let newValue = input.value;
-
-    listItem.innerHTML = `${newValue} `;
-
-    listItem.appendChild(removeButton);
-    listItem.appendChild(doneButton);
-    doneButton.style.display = 'inline';
-    removeButton.style.display = 'inline';
-
-    let editButton = document.createElement('button');
-    editButton.innerText = '✏️';
-    editButton.className = 'btn-click-simple';
-    editButton.onclick = function() {
-        editElement(editButton);
-    };
-    listItem.appendChild(editButton);
-
-    console.log('Saved:', newValue);
-}
-
-function searchForItem() {
-    let filter = searchbar.value.toUpperCase();
-    let li = listElements.getElementsByTagName("li");
-
-    for (let i = 0; i < li.length; i++) {
-        let txtValue = li[i].textContent || li[i].innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
+    function emptylist() {
+        if(listForAllElementsInLists.length === 0 ){
+            info.innerHTML = 'Your to-do list is empty!';
+            info.style.display="flex";
+            info.style.justifyContent="center";
+            info.style.color ="red";
         } else {
-            li[i].style.display = "none";
+            info.innerHTML = '';
         }
     }
-}
 
-addRandomElements();
+    function searchForItem() {
+        let filter = searchBar.value.toUpperCase();
+        let li = listElements.getElementsByTagName("li");
+
+        for (let i = 0; i < li.length; i++) {
+            let txtValue = li[i].textContent || li[i].innerText;
+            li[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
+        }
+    }
+
+    addBtn.addEventListener("click", addItemToList);
+    searchBtn.addEventListener("click", searchForItem);
+    searchBar.addEventListener("keyup", searchForItem);
+
+    addRandomElements();
+    emptylist();
+});
