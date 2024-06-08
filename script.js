@@ -14,8 +14,8 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let i = 0; i < elements.length; i++) {
             let createElementLiForList = document.createElement("li");
             createElementLiForList.className = "single-element";
-            createElementLiForList.innerHTML = ` ${elements[i]} <button class="btn-click-simple remove-btn">❌</button> 
-            <button class="btn-click-simple done-btn">✅</button> <button class="btn-click-simple edit-btn">✏️</button>`;
+            createElementLiForList.innerHTML = ` ${elements[i]}  
+            <button class="btn-click-simple done-btn">✅</button> <button class="btn-click-simple edit-btn">✏️</button> <button class="btn-click-simple remove-btn">❌</button>`;
             listElements.appendChild(createElementLiForList);
         }
     }
@@ -27,8 +27,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
             let createElementLiForList = document.createElement("li");
             createElementLiForList.className = "single-element";
-            createElementLiForList.innerHTML = `${newItem} <button  class="btn-click-simple remove-btn">❌</button> 
-            <button  class="btn-click-simple done-btn">✅</button> <button  class="btn-click-simple edit-btn">✏️</button>`;
+            createElementLiForList.innerHTML = `${newItem} 
+            <button  class="btn-click-simple done-btn">✅</button> <button  class="btn-click-simple edit-btn">✏️</button> <button  class="btn-click-simple remove-btn">❌</button> `;
             listElements.appendChild(createElementLiForList);
 
             searchBar.value = "";
