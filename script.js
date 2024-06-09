@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const info = document.querySelector(".info");
-    const listElements = document.querySelector("#list");
-    const searchBar = document.querySelector("#searchbar");
-    const searchBtn = document.querySelector("#search-btn");
-    const addBtn = document.querySelector("#add-btn");
+    const info = document.querySelector(".js-info");
+    const listElements = document.querySelector(".js-list");
+    const searchBar = document.querySelector(".js-searchbar");
+    const searchBtn = document.querySelector(".js-search-btn");
+    const addBtn = document.querySelector(".js-add-btn");
+    const form = document.querySelector(".js-form");
 
     let listForAllElementsInLists = [];
 
@@ -15,9 +16,12 @@ document.addEventListener("DOMContentLoaded", function() {
             let createElementLiForList = document.createElement("li");
             createElementLiForList.className = "single-element";
             createElementLiForList.innerHTML = ` ${elements[i]}  
-            <button class="btn-click-simple done-btn">✅</button> <button class="btn-click-simple edit-btn">✏️</button> <button class="btn-click-simple remove-btn">❌</button>`;
+            <button class="btn-click-simple js-done-btn">✅</button> 
+            <button class="btn-click-simple js-edit-btn">✏️</button>
+            <button class="btn-click-simple js-remove-btn">❌</button>`;
             listElements.appendChild(createElementLiForList);
         }
+        emptylist();
     }
 
     function addItemToList() {
@@ -28,7 +32,9 @@ document.addEventListener("DOMContentLoaded", function() {
             let createElementLiForList = document.createElement("li");
             createElementLiForList.className = "single-element";
             createElementLiForList.innerHTML = `${newItem} 
-            <button  class="btn-click-simple done-btn">✅</button> <button  class="btn-click-simple edit-btn">✏️</button> <button  class="btn-click-simple remove-btn">❌</button> `;
+            <button class="btn-click-simple js-done-btn">✅</button>
+            <button class="btn-click-simple js-edit-btn">✏️</button>
+            <button class="btn-click-simple js-remove-btn">❌</button>`;
             listElements.appendChild(createElementLiForList);
 
             searchBar.value = "";
@@ -41,20 +47,22 @@ document.addEventListener("DOMContentLoaded", function() {
         let listItem = button.parentElement;
         listItem.style.textDecoration = "line-through";
 
-        let undoButton = document.createElement("button");
-        undoButton.textContent = "↩️";
-        undoButton.className = 'btn-click';
+        if (!listItem.querySelector('.js-undo-btn')) {
+            let undoButton = document.createElement("button");
+            undoButton.textContent = "↩️";
+            undoButton.className = 'btn-click js-undo-btn';
 
-        undoButton.addEventListener("click", function() {
-            listItem.style.textDecoration = "none";
-            listItem.removeChild(undoButton);
-        });
+            undoButton.addEventListener("click", function() {
+                listItem.style.textDecoration = "none";
+                listItem.removeChild(undoButton);
+            });
 
-        listItem.appendChild(undoButton);
+            listItem.appendChild(undoButton);
+        }
     }
 
     listElements.addEventListener("click", function(event) {
-        if (event.target.classList.contains("done-btn")) {
+        if (event.target.classList.contains("js-done-btn")) {
             doneElement(event.target);
         }
     });
@@ -62,39 +70,45 @@ document.addEventListener("DOMContentLoaded", function() {
     function removeElement(button) {
         let listItem = button.parentElement;
         listItem.remove();
-        listForAllElementsInLists = listForAllElementsInLists.filter(item => item !== listItem.innerText.replace(/❌|✅|✏️/g, '').trim());
-        emptylist(); 
+        listForAllElementsInLists = listForAllElementsInLists.filter(item => item !== listItem.innerText.replace(/✅|✏️|❌/g, '').trim());
+        emptylist();
     }
 
     listElements.addEventListener("click", function(event) {
-        if (event.target.classList.contains("remove-btn")) {
+        if (event.target.classList.contains("js-remove-btn")) {
             removeElement(event.target);
         }
     });
 
     function editElement(listItem) {
-        let doneButton = listItem.querySelector('.done-btn');
-        let removeButton = listItem.querySelector('.remove-btn');
+        let doneButton = listItem.querySelector('.js-done-btn');
+        let removeButton = listItem.querySelector('.js-remove-btn');
         doneButton.style.display = 'none';
         removeButton.style.display = 'none';
-
-        let currentText = listItem.innerText.replace(/❌|✅|✏️/g, '').trim();
-
+    
+        let existingUndoButton = listItem.querySelector('.js-undo-btn');
+        if (existingUndoButton) {
+            listItem.removeChild(existingUndoButton);
+        }
+    
+        let currentText = listItem.innerText.replace(/✅|✏️|❌|↩️/g, '').trim();
+    
         let input = document.createElement('input');
         input.type = 'text';
         input.value = currentText;
-
+    
         listItem.innerHTML = '';
         listItem.appendChild(input);
-
+    
         let saveButton = document.createElement('button');
         saveButton.innerText = 'save';
-        saveButton.className = 'btn-click';
+        saveButton.className = 'btn-click js-save-btn';
         saveButton.addEventListener("click", function() {
             saveEdit(listItem, input, doneButton, removeButton);
         });
         listItem.appendChild(saveButton);
     }
+    
 
     function saveEdit(listItem, input, doneButton, removeButton) {
         let newValue = input.value;
@@ -102,27 +116,33 @@ document.addEventListener("DOMContentLoaded", function() {
         let newText = document.createTextNode(newValue);
         listItem.innerHTML = '';
         listItem.appendChild(newText);
-
-        listItem.appendChild(removeButton);
         listItem.appendChild(doneButton);
+        listItem.appendChild(removeButton);
+
         doneButton.style.display = 'inline';
         removeButton.style.display = 'inline';
 
         let editButton = document.createElement('button');
         editButton.innerText = '✏️';
-        editButton.className = 'btn-click-simple edit-btn';
+        editButton.className = 'btn-click-simple js-edit-btn';
         editButton.addEventListener("click", function() {
             editElement(listItem);
         });
+        listItem.appendChild(doneButton);
         listItem.appendChild(editButton);
+        listItem.appendChild(removeButton);
+    }
+
+    function numberOfesponsibilities() {
+        console.log( "duties: " + listForAllElementsInLists.length);
     }
 
     function emptylist() {
-        if(listForAllElementsInLists.length === 0 ){
+        if (listForAllElementsInLists.length === 0) {
             info.innerHTML = 'Your to-do list is empty!';
-            info.style.display="flex";
-            info.style.justifyContent="center";
-            info.style.color ="red";
+            info.style.display = "flex";
+            info.style.justifyContent = "center";
+            info.style.color = "red";
         } else {
             info.innerHTML = '';
         }
@@ -138,17 +158,35 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        addItemToList();
+    });
+
     addBtn.addEventListener("click", addItemToList);
     searchBtn.addEventListener("click", searchForItem);
+    searchBar.addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            event.preventDefault(); 
+            addItemToList(); 
+        }
+    });
     searchBar.addEventListener("keyup", searchForItem);
 
     listElements.addEventListener("click", function(event) {
-        if (event.target.classList.contains("edit-btn")) {
-            let listItem = event.target.parentElement;
+        const target = event.target;
+        if (target.classList.contains("js-done-btn")) {
+            doneElement(target);
+        } else if (target.classList.contains("js-remove-btn")) {
+            removeElement(target);
+        } else if (target.classList.contains("js-edit-btn")) {
+            const listItem = target.parentElement;
             editElement(listItem);
         }
     });
 
     addRandomElements();
     emptylist();
+
+    numberOfesponsibilities();
 });

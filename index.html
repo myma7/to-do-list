@@ -17,17 +17,17 @@
     <main class="main-container">
         <h1>Todo list</h1>
         <section class="internal-container">
-            <form id="todo-form">
+            <form class="todo-form js-form">
                 <div class="internal-container-todo">
-                    <input id="searchbar" type="text" name="search" placeholder="Find or add element...">
+                    <input class="searchbar js-searchbar" type="text" name="search" placeholder="Find or add element...">
                     <div class="btn-search-add">
-                        <button id="search-btn" class="btn-click" type="button">search</button>
-                        <button id="add-btn" class="btn-click" type="button">add</button>
+                        <button class="search-btn btn-click js-search-btn" type="button">Search</button>
+                        <button class="add-btn btn-click js-add-btn" type="button">Add</button>
                     </div>
                 </div>
             </form>
-            <ul id="list"></ul>
-            <div class="info"></div> 
+            <ul class="list js-list"></ul>
+            <div class="info js-info"></div> 
         </section>
     </main>
     <script src="script.js"></script>

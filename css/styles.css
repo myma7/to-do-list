@@ -31,7 +31,7 @@ h1 {
   border-radius: 20px;
 }
 
-#searchbar {
+.searchbar {
   width: 300px;
   height: 40px;
   border-radius: 10px;
@@ -39,10 +39,16 @@ h1 {
 
 .btn-search-add {
   cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  transition: 0.2s;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  font-style: normal;
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  font-family: "Montserrat", sans-serif;
   letter-spacing: 1px;
   border-radius: 20px;
 }
@@ -51,33 +57,53 @@ h1 {
   cursor: pointer;
   border: none;
   border-radius: 10px;
-}
-
-.btn-click:hover {
-  cursor: pointer;
-  background-color: rgb(185, 72, 121);
   transition: 0.2s;
+}
+.btn-click:hover {
+  background-color: rgb(185, 72, 121);
+  cursor: pointer;
 }
 
 .btn-click-simple {
   cursor: pointer;
   border: none;
+  border-radius: 10px;
+  transition: 0.2s;
   padding: 4px;
 }
 
 .single-element {
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  font-style: normal;
   list-style-type: none;
   padding: 10px;
-  font-size: 16px;
-  font-family: "Roboto Condensed", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.single-element .btn-click-simple {
+  margin-left: 5px;
+}
+
+.single-element .btn-click-simple:first-child {
+  margin-left: 0;
 }
 
 input {
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  font-style: normal;
   border: none;
   border-radius: 5px;
   padding: 2px;
-  font-size: 16px;
-  font-family: "Roboto Condensed", sans-serif;
+}
+
+.remove-btn, .edit-btn, .done-btn {
+  font-size: 20px;
 }
 
 @media screen and (max-width: 600px) {
@@ -97,18 +123,17 @@ input {
     font-size: 40px;
     font-style: normal;
   }
-  #searchbar {
+  .searchbar {
     display: flex;
     flex-direction: column;
     width: 250px;
-    padding: auto;
     border: none;
   }
-  #searchbar::-moz-placeholder {
+  .searchbar::-moz-placeholder {
     padding: 10px;
     letter-spacing: 2px;
   }
-  #searchbar::placeholder {
+  .searchbar::placeholder {
     padding: 10px;
     letter-spacing: 2px;
   }
@@ -117,20 +142,20 @@ input {
   }
 }
 @media screen and (min-width: 601px) and (max-width: 900px) {
-  #searchbar {
+  .searchbar {
     display: flex;
     flex-direction: column;
     align-items: end;
     width: 450px;
     border: none;
   }
-  #searchbar::-moz-placeholder {
+  .searchbar::-moz-placeholder {
     margin: 50px;
     letter-spacing: 2px;
     font-size: 30px;
     padding: 2px;
   }
-  #searchbar::placeholder {
+  .searchbar::placeholder {
     margin: 50px;
     letter-spacing: 2px;
     font-size: 30px;
@@ -145,11 +170,10 @@ input {
     font-size: 25px;
   }
   .btn-click-simple {
-    cursor: pointer;
-    border: none;
     padding: 18px;
   }
   .single-element {
+    display: flex;
     font-size: 40px;
   }
   .info {
@@ -169,23 +193,24 @@ input {
   }
   h1 {
     font-family: "Roboto Condensed", sans-serif;
+    font-weight: 400;
     font-size: 100px;
-    letter-spacing: 2px;
     font-style: normal;
+    letter-spacing: 2px;
   }
-  #searchbar {
+  .searchbar {
     display: flex;
     flex-direction: column;
     padding: 30px;
     width: 1200px;
     border: none;
   }
-  #searchbar::-moz-placeholder {
+  .searchbar::-moz-placeholder {
     padding: 20px;
     letter-spacing: 2px;
     font-size: 20px;
   }
-  #searchbar::placeholder {
+  .searchbar::placeholder {
     padding: 20px;
     letter-spacing: 2px;
     font-size: 20px;
@@ -199,19 +224,13 @@ input {
     font-size: 25px;
   }
   .btn-click-simple {
-    cursor: pointer;
-    border: none;
     padding: 38px;
   }
   .single-element {
     font-size: 40px;
   }
-  .remove-btn {
-    font-size: 20px;
-  }
-  .edit-btn {
-    font-size: 20px;
-  }
+  .remove-btn,
+  .edit-btn,
   .done-btn {
     font-size: 20px;
   }
