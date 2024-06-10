@@ -112,6 +112,19 @@ h1 {
   margin-left: 0;
 }
 
+.js-info {
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.js-responsibility-count {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  color: black;
+}
+
 input {
   @include font-roboto-condensed;
   border: none;

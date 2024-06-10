@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
             listElements.appendChild(createElementLiForList);
         }
         emptylist();
+        numberOfResponsibilities();
     }
 
     function addItemToList() {
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
             searchBar.focus();
         }
         emptylist();
+        numberOfResponsibilities();
     }
 
     function doneElement(button) {
@@ -72,6 +74,7 @@ document.addEventListener("DOMContentLoaded", function() {
         listItem.remove();
         listForAllElementsInLists = listForAllElementsInLists.filter(item => item !== listItem.innerText.replace(/✅|✏️|❌/g, '').trim());
         emptylist();
+        numberOfResponsibilities();
     }
 
     listElements.addEventListener("click", function(event) {
@@ -109,7 +112,6 @@ document.addEventListener("DOMContentLoaded", function() {
         listItem.appendChild(saveButton);
     }
     
-
     function saveEdit(listItem, input, doneButton, removeButton) {
         let newValue = input.value;
 
@@ -133,8 +135,18 @@ document.addEventListener("DOMContentLoaded", function() {
         listItem.appendChild(removeButton);
     }
 
-    function numberOfesponsibilities() {
-        console.log( "duties: " + listForAllElementsInLists.length);
+    function numberOfResponsibilities() {
+        let existingCountElement = info.querySelector('.js-responsibility-count');
+        if (!existingCountElement) {
+            existingCountElement = document.createElement('div');
+            existingCountElement.className = "js-responsibility-count";
+            info.appendChild(existingCountElement);
+        }
+        if (listForAllElementsInLists.length === 0) {
+            existingCountElement.style.display = "none";
+        } else {
+            existingCountElement.innerHTML = `Duties: ${listForAllElementsInLists.length}`;
+        }
     }
 
     function emptylist() {
@@ -146,6 +158,7 @@ document.addEventListener("DOMContentLoaded", function() {
         } else {
             info.innerHTML = '';
         }
+        numberOfResponsibilities();
     }
 
     function searchForItem() {
@@ -187,6 +200,4 @@ document.addEventListener("DOMContentLoaded", function() {
 
     addRandomElements();
     emptylist();
-
-    numberOfesponsibilities();
 });
