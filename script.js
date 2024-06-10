@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const searchBtn = document.querySelector(".js-search-btn");
     const addBtn = document.querySelector(".js-add-btn");
     const form = document.querySelector(".js-form");
+    const btns = document.querySelector(".btn-search-add");
 
     let listForAllElementsInLists = [];
 
@@ -21,6 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
             <button class="btn-click-simple js-remove-btn">❌</button>`;
             listElements.appendChild(createElementLiForList);
         }
+        
         emptylist();
         numberOfResponsibilities();
     }
@@ -41,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
             searchBar.value = "";
             searchBar.focus();
         }
+
         emptylist();
         numberOfResponsibilities();
     }
@@ -170,6 +173,40 @@ document.addEventListener("DOMContentLoaded", function() {
             li[i].style.display = txtValue.toUpperCase().indexOf(filter) > -1 ? "" : "none";
         }
     }
+
+
+    function sortingElement() {
+        console.log("sortingElement");
+        let sortButton = document.createElement("button");
+        sortButton.textContent = "Sort";
+        sortButton.classList.add("sorting", "btn-click");
+    
+        let sortDirection = "asc";
+    
+        sortButton.addEventListener("click", function(){
+            let lis = Array.from(listElements.querySelectorAll('li'));
+            lis.sort(function(a, b) {
+                let textA = a.textContent.trim().toUpperCase();
+                let textB = b.textContent.trim().toUpperCase();
+                if(sortDirection === "asc") {
+                    if(textA < textB) return -1;
+                    if(textA > textB) return 1;
+                    return 0;
+                } else {
+                    if(textA < textB) return 1;
+                    if(textA > textB) return -1;
+                    return 0;
+                }
+            });
+            listElements.innerHTML = '';
+            lis.forEach(li => listElements.appendChild(li));
+    
+            sortDirection = sortDirection === "asc" ? "desc" : "asc";
+        })
+    
+        btns.append(sortButton);
+    }
+    sortingElement();
 
     form.addEventListener("submit", function(event) {
         event.preventDefault();
