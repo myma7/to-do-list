@@ -77,6 +77,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+
+
     listElements.addEventListener("click", function(event) {
         if (event.target.classList.contains("js-done-btn")) {
             doneElement(event.target);
@@ -121,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
         listItem.appendChild(input);
     
         let saveButton = document.createElement('button');
-        saveButton.innerText = 'save';
+        saveButton.innerText = 'Save';
         saveButton.className = 'btn-click js-save-btn';
         saveButton.addEventListener("click", function() {
             saveEdit(listItem, input, doneButton, removeButton);
@@ -197,7 +199,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     function sortingElement() {
-        console.log("sortingElement");
         let sortButton = document.createElement("button");
         sortButton.textContent = "Sort";
         sortButton.classList.add("sorting", "btn-click");

@@ -23,6 +23,21 @@ h1 {
   align-items: center;
   height: 100vh;
 }
+@media screen and (max-width: 600px) {
+  .main-container {
+    height: 100vh;
+  }
+}
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  .main-container {
+    height: 100vh;
+  }
+}
+@media screen and (min-width: 901px) {
+  .main-container {
+    height: 100vh;
+  }
+}
 
 .internal-container {
   background-color: #ddd3d3;
@@ -30,11 +45,89 @@ h1 {
   border: 1px solid black;
   border-radius: 20px;
 }
+@media screen and (max-width: 600px) {
+  .internal-container {
+    padding: 25px;
+  }
+}
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  .internal-container {
+    padding: 70px;
+  }
+}
+@media screen and (min-width: 901px) {
+  .internal-container {
+    padding: 20px;
+  }
+}
 
 .searchbar {
   width: 300px;
   height: 40px;
   border-radius: 10px;
+}
+@media screen and (max-width: 600px) {
+  .searchbar {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    border: none;
+  }
+}
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  .searchbar {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 450px;
+    border: none;
+  }
+}
+@media screen and (min-width: 901px) {
+  .searchbar {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    width: 1200px;
+    border: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .searchbar::-moz-placeholder {
+    padding: 10px;
+    letter-spacing: 2px;
+  }
+  .searchbar::placeholder {
+    padding: 10px;
+    letter-spacing: 2px;
+  }
+}
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  .searchbar::-moz-placeholder {
+    margin: 50px;
+    letter-spacing: 2px;
+    font-size: 30px;
+    padding: 2px;
+  }
+  .searchbar::placeholder {
+    margin: 50px;
+    letter-spacing: 2px;
+    font-size: 30px;
+    padding: 2px;
+  }
+}
+@media screen and (min-width: 901px) {
+  .searchbar::-moz-placeholder {
+    padding: 20px;
+    letter-spacing: 2px;
+    font-size: 20px;
+  }
+  .searchbar::placeholder {
+    padding: 20px;
+    letter-spacing: 2px;
+    font-size: 20px;
+  }
 }
 
 .btn-search-add {
@@ -63,6 +156,26 @@ h1 {
   background-color: rgb(185, 72, 121);
   cursor: pointer;
 }
+@media screen and (max-width: 600px) {
+  .btn-click {
+    margin: 5px;
+    padding: 6px;
+  }
+}
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  .btn-click {
+    margin: 5px;
+    padding: 10px;
+    font-size: 25px;
+  }
+}
+@media screen and (min-width: 901px) {
+  .btn-click {
+    margin: 5px;
+    padding: 10px;
+    font-size: 25px;
+  }
+}
 
 .btn-click-simple {
   cursor: pointer;
@@ -70,6 +183,16 @@ h1 {
   border-radius: 10px;
   transition: 0.2s;
   padding: 4px;
+}
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  .btn-click-simple {
+    padding: 18px;
+  }
+}
+@media screen and (min-width: 901px) {
+  .btn-click-simple {
+    padding: 38px;
+  }
 }
 
 .single-element {
@@ -83,11 +206,21 @@ h1 {
   justify-content: space-between;
   align-items: center;
 }
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  .single-element {
+    display: flex;
+    font-size: 40px;
+  }
+}
+@media screen and (min-width: 901px) {
+  .single-element {
+    font-size: 40px;
+  }
+}
 
 .single-element .btn-click-simple {
   margin-left: 5px;
 }
-
 .single-element .btn-click-simple:first-child {
   margin-left: 0;
 }
@@ -122,144 +255,24 @@ input {
   border-radius: 5px;
   padding: 2px;
 }
-
-.remove-btn, .edit-btn, .done-btn {
-  font-size: 20px;
-}
-
-@media screen and (max-width: 600px) {
-  .main-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  .btn-click {
-    margin: 5px;
-    padding: 6px;
-  }
-  h1 {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 800;
-    font-size: 40px;
-    font-style: normal;
-  }
-  .searchbar {
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    border: none;
-  }
-  .searchbar::-moz-placeholder {
-    padding: 10px;
-    letter-spacing: 2px;
-  }
-  .searchbar::placeholder {
-    padding: 10px;
-    letter-spacing: 2px;
-  }
-  .internal-container {
-    padding: 25px;
-  }
-}
-@media screen and (min-width: 601px) and (max-width: 900px) {
-  .searchbar {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    width: 450px;
-    border: none;
-  }
-  .searchbar::-moz-placeholder {
-    margin: 50px;
-    letter-spacing: 2px;
-    font-size: 30px;
-    padding: 2px;
-  }
-  .searchbar::placeholder {
-    margin: 50px;
-    letter-spacing: 2px;
-    font-size: 30px;
-    padding: 2px;
-  }
-  .internal-container {
-    padding: 70px;
-  }
-  .btn-click {
-    margin: 5px;
-    padding: 10px;
-    font-size: 25px;
-  }
-  .btn-click-simple {
-    padding: 18px;
-  }
-  .single-element {
-    display: flex;
-    font-size: 40px;
-  }
-  .info {
-    font-size: 15px;
-  }
-}
 @media screen and (min-width: 901px) {
-  .main-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  .btn-click {
-    margin: 5px;
-    padding: 6px;
-  }
-  h1 {
-    font-family: "Roboto Condensed", sans-serif;
-    font-weight: 400;
-    font-size: 100px;
-    font-style: normal;
-    letter-spacing: 2px;
-  }
-  .searchbar {
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-    width: 1200px;
-    border: none;
-  }
-  .searchbar::-moz-placeholder {
-    padding: 20px;
-    letter-spacing: 2px;
-    font-size: 20px;
-  }
-  .searchbar::placeholder {
-    padding: 20px;
-    letter-spacing: 2px;
-    font-size: 20px;
-  }
-  .internal-container {
-    padding: 20px;
-  }
-  .btn-click {
-    margin: 5px;
-    padding: 10px;
-    font-size: 25px;
-  }
-  .btn-click-simple {
-    padding: 38px;
-  }
-  .single-element {
-    font-size: 40px;
-  }
-  .remove-btn,
-  .edit-btn,
-  .done-btn {
-    font-size: 20px;
-  }
   input {
     width: 820px;
     height: 60px;
     font-size: 16px;
   }
+}
+
+.remove-btn, .edit-btn, .done-btn {
+  font-size: 20px;
+}
+
+@media screen and (min-width: 601px) and (max-width: 900px) {
+  .info {
+    font-size: 15px;
+  }
+}
+@media screen and (min-width: 901px) {
   .info {
     font-size: 25px;
   }

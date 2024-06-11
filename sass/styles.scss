@@ -61,18 +61,85 @@ h1 {
   justify-content: center;
   align-items: center;
   height: 100vh;
+
+  @media screen and (max-width: 600px) {
+    height: 100vh;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 900px) {
+    height: 100vh;
+  }
+
+  @media screen and (min-width: 901px) {
+    height: 100vh;
+  }
 }
 
 .internal-container {
   @include color-properties(#ddd3d3, null, rgba(66, 68, 90, 1));
   border: 1px solid black;
   border-radius: 20px;
+
+  @media screen and (max-width: 600px) {
+    padding: 25px;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 900px) {
+    padding: 70px;
+  }
+
+  @media screen and (min-width: 901px) {
+    padding: 20px;
+  }
 }
 
 .searchbar { 
   width: 300px;
   height: 40px;
   border-radius: 10px;
+
+  @media screen and (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+    border: none;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 900px) {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    width: 450px;
+    border: none;
+  }
+
+  @media screen and (min-width: 901px) {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    width: 1200px;
+    border: none;
+  }
+}
+
+.searchbar::placeholder {
+  @media screen and (max-width: 600px) {
+    padding: 10px;
+    letter-spacing: 2px;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 900px) {
+    margin: 50px;
+    letter-spacing: 2px;
+    font-size: 30px;
+    padding: 2px;
+  }
+
+  @media screen and (min-width: 901px) {
+    padding: 20px;
+    letter-spacing: 2px;
+    font-size: 20px;
+  }
 }
 
 .btn-search-add {
@@ -88,11 +155,36 @@ h1 {
 .btn-click {
   @include common-button-styles;
   @include color-properties(null, rgb(185, 72, 121));
+
+  @media screen and (max-width: 600px) {
+    margin: 5px;
+    padding: 6px;
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 900px) {
+    margin: 5px;
+    padding: 10px;
+    font-size: 25px;
+  }
+
+  @media screen and (min-width: 901px) {
+    margin: 5px;
+    padding: 10px;
+    font-size: 25px;
+  }
 }
 
 .btn-click-simple {
   @include common-button-styles;
   padding: 4px;
+
+  @media screen and (min-width: 601px) and (max-width: 900px) {
+    padding: 18px;
+  }
+
+  @media screen and (min-width: 901px) {
+    padding: 38px;
+  }
 }
 
 .single-element {
@@ -102,14 +194,23 @@ h1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (min-width: 601px) and (max-width: 900px) {
+    display: flex;
+    font-size: 40px;
+  }
+
+  @media screen and (min-width: 901px) {
+    font-size: 40px;
+  }
 }
 
 .single-element .btn-click-simple {
   margin-left: 5px;
-}
 
-.single-element .btn-click-simple:first-child {
-  margin-left: 0;
+  &:first-child {
+    margin-left: 0;
+  }
 }
 
 .js-info {
@@ -135,149 +236,24 @@ input {
   border: none;
   border-radius: 5px;
   padding: 2px;
+
+  @media screen and (min-width: 901px) {
+    width: 820px;
+    height: 60px;
+    font-size: 16px;
+  }
 }
 
 .remove-btn, .edit-btn, .done-btn {
   @include common-font-size(20px);
 }
 
-@media screen and (max-width: 600px) {
-  .main-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-  .btn-click {
-    margin: 5px;
-    padding: 6px;
-  }
-
-  h1 {
-    @include font-montserrat(800, 40px);
-  }
-
-  .searchbar {
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    border: none;
-  }
-
-  .searchbar::placeholder {
-    padding: 10px;
-    letter-spacing: 2px;
-  }
-
-  .internal-container {
-    padding: 25px;
-  }
-}
-
-@media screen and (min-width: 601px) and (max-width: 900px) {
-  .searchbar {
-    display: flex;
-    flex-direction: column;
-    align-items: end;
-    width: 450px;
-    border: none;
-  }
-
-  .searchbar::placeholder {
-    margin: 50px;
-    letter-spacing: 2px;
-    font-size: 30px;
-    padding: 2px;
-  }
-
-  .internal-container {
-    padding: 70px;
-  }
-
-  .btn-click {
-    margin: 5px;
-    padding: 10px;
-    font-size: 25px;
-  }
-
-  .btn-click-simple {
-    padding: 18px;
-  }
-
-  .single-element {
-    display: flex;
-    font-size: 40px;
-  }
-
-  .info {
+.info {
+  @media screen and (min-width: 601px) and (max-width: 900px) {
     font-size: 15px;
   }
-}
 
-@media screen and (min-width: 901px) {
-  .main-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-
-  .btn-click {
-    margin: 5px;
-    padding: 6px;
-  }
-
-  h1 {
-    @include font-roboto-condensed(400, 100px);
-    letter-spacing: 2px;
-  }
-
-  .searchbar {
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-    width: 1200px;
-    border: none;
-  }
-
-  .searchbar::placeholder {
-    padding: 20px;
-    letter-spacing: 2px;
-    font-size: 20px;
-  }
-
-  .internal-container {
-    padding: 20px;
-  }
-
-  .btn-click {
-    margin: 5px;
-    padding: 10px;
-    font-size: 25px;
-  }
-
-  .btn-click-simple {
-    padding: 38px;
-  }
-
-  .single-element {
-    font-size: 40px;
-  }
-
-  .remove-btn,
-  .edit-btn,
-  .done-btn {
-    @include common-font-size(20px);
-  }
-
-  input {
-    width: 820px;
-    height: 60px;
-    font-size: 16px;
-  }
-
-  .info {
+  @media screen and (min-width: 901px) {
     font-size: 25px;
   }
 }
