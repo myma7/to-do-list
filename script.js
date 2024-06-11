@@ -16,12 +16,26 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let i = 0; i < elements.length; i++) {
             let createElementLiForList = document.createElement("li");
             createElementLiForList.className = "single-element";
-            createElementLiForList.innerHTML = ` ${elements[i]}  
-            <button class="btn-click-simple js-done-btn">✅</button> 
-            <button class="btn-click-simple js-edit-btn">✏️</button>
-            <button class="btn-click-simple js-remove-btn">❌</button>`;
+
+            let textDiv = document.createElement("div");
+            let buttonsDiv = document.createElement("div");
+    
+            textDiv.classList.add("element-div");
+            buttonsDiv.classList.add("element-div-2");
+    
+            textDiv.innerHTML = `${elements[i]}`;
+            buttonsDiv.innerHTML = `
+                <button class="btn-click-simple js-done-btn">✅</button> 
+                <button class="btn-click-simple js-edit-btn">✏️</button>
+                <button class="btn-click-simple js-remove-btn">❌</button>
+            `;
+    
+            createElementLiForList.appendChild(textDiv);
+            createElementLiForList.appendChild(buttonsDiv);
+    
             listElements.appendChild(createElementLiForList);
         }
+
         
         emptylist();
         numberOfResponsibilities();
@@ -31,37 +45,52 @@ document.addEventListener("DOMContentLoaded", function() {
         let newItem = searchBar.value.trim();
         if (newItem) {
             listForAllElementsInLists.push(newItem);
-
+    
             let createElementLiForList = document.createElement("li");
             createElementLiForList.className = "single-element";
-            createElementLiForList.innerHTML = `${newItem} 
-            <button class="btn-click-simple js-done-btn">✅</button>
-            <button class="btn-click-simple js-edit-btn">✏️</button>
-            <button class="btn-click-simple js-remove-btn">❌</button>`;
+    
+            let textDiv = document.createElement("div");
+            let buttonsDiv = document.createElement("div");
+    
+            textDiv.classList.add("element-div");
+            buttonsDiv.classList.add("element-div-2");
+    
+            textDiv.innerHTML = `${newItem}`;
+            buttonsDiv.innerHTML = `
+                <button class="btn-click-simple js-done-btn">✅</button> 
+                <button class="btn-click-simple js-edit-btn">✏️</button>
+                <button class="btn-click-simple js-remove-btn">❌</button>
+            `;
+    
+            createElementLiForList.appendChild(textDiv);
+            createElementLiForList.appendChild(buttonsDiv);
+    
             listElements.appendChild(createElementLiForList);
-
             searchBar.value = "";
             searchBar.focus();
+    
+            emptylist();
+            numberOfResponsibilities();
         }
-
-        emptylist();
-        numberOfResponsibilities();
     }
+    
 
     function doneElement(button) {
-        let listItem = button.parentElement;
-        listItem.style.textDecoration = "line-through";
-
+        let listItem = button.closest("li");
+        let textElement = listItem.querySelector('.element-div');
+    
+        textElement.style.textDecoration = "line-through";
+    
         if (!listItem.querySelector('.js-undo-btn')) {
             let undoButton = document.createElement("button");
             undoButton.textContent = "↩️";
             undoButton.className = 'btn-click js-undo-btn';
-
+    
             undoButton.addEventListener("click", function() {
-                listItem.style.textDecoration = "none";
+                textElement.style.textDecoration = "none";
                 listItem.removeChild(undoButton);
             });
-
+    
             listItem.appendChild(undoButton);
         }
     }
@@ -73,9 +102,14 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     function removeElement(button) {
-        let listItem = button.parentElement;
+       
+        let listItem = button.closest("li");
+
         listItem.remove();
-        listForAllElementsInLists = listForAllElementsInLists.filter(item => item !== listItem.innerText.replace(/✅|✏️|❌/g, '').trim());
+
+        let itemText = listItem.querySelector(".element-div").innerText;
+        listForAllElementsInLists = listForAllElementsInLists.filter(item => item !== itemText);
+    
         emptylist();
         numberOfResponsibilities();
     }
@@ -86,71 +120,73 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    function editElement(listItem) {
-        let doneButton = listItem.querySelector('.js-done-btn');
-        let removeButton = listItem.querySelector('.js-remove-btn');
-        doneButton.style.display = 'none';
-        removeButton.style.display = 'none';
+//     function editElement(listItem) {
+//         let doneButton = listItem.querySelector('.js-done-btn');
+//         let removeButton = listItem.querySelector('.js-remove-btn');
+//         doneButton.style.display = 'none';
+//         removeButton.style.display = 'none';
     
-        let existingUndoButton = listItem.querySelector('.js-undo-btn');
-        if (existingUndoButton) {
-            listItem.removeChild(existingUndoButton);
-        }
+//         let existingUndoButton = listItem.querySelector('.js-undo-btn');
+//         if (existingUndoButton) {
+//             listItem.removeChild(existingUndoButton);
+//         }
     
-        let currentText = listItem.innerText.replace(/✅|✏️|❌|↩️/g, '').trim();
+//         let currentText = listItem.innerText.replace(/✅|✏️|❌|↩️/g, '').trim();
     
-        let input = document.createElement('input');
-        input.type = 'text';
-        input.value = currentText;
+//         let input = document.createElement('input');
+//         input.type = 'text';
+//         input.value = currentText;
     
-        listItem.innerHTML = '';
-        listItem.appendChild(input);
+//         listItem.innerHTML = '';
+//         listItem.appendChild(input);
     
-        let saveButton = document.createElement('button');
-        saveButton.innerText = 'save';
-        saveButton.className = 'btn-click js-save-btn';
-        saveButton.addEventListener("click", function() {
-            saveEdit(listItem, input, doneButton, removeButton);
-        });
-        listItem.appendChild(saveButton);
-    }
+//         let saveButton = document.createElement('button');
+//         saveButton.innerText = 'save';
+//         saveButton.className = 'btn-click js-save-btn';
+//         saveButton.addEventListener("click", function() {
+//             saveEdit(listItem, input, doneButton, removeButton);
+//         });
+//         listItem.appendChild(saveButton);
+        
+//     }
     
-    function saveEdit(listItem, input, doneButton, removeButton) {
-        let newValue = input.value;
+//    function saveEdit(listItem, input, doneButton, removeButton) {
+//     let newValue = input.value;
 
-        let newText = document.createTextNode(newValue);
-        listItem.innerHTML = '';
-        listItem.appendChild(newText);
-        listItem.appendChild(doneButton);
-        listItem.appendChild(removeButton);
+//     let newText = document.createTextNode(newValue);
+//     listItem.innerHTML = '';
+//     listItem.appendChild(newText);
+//     listItem.appendChild(doneButton);
+//     listItem.appendChild(removeButton);
 
-        doneButton.style.display = 'inline';
-        removeButton.style.display = 'inline';
+//     doneButton.style.display = 'inline';
+//     removeButton.style.display = 'inline';
 
-        let editButton = document.createElement('button');
-        editButton.innerText = '✏️';
-        editButton.className = 'btn-click-simple js-edit-btn';
-        editButton.addEventListener("click", function() {
-            editElement(listItem);
-        });
-        listItem.appendChild(doneButton);
-        listItem.appendChild(editButton);
-        listItem.appendChild(removeButton);
-    }
+//     let editButton = document.createElement('button');
+//     editButton.innerText = '✏️';
+//     editButton.className = 'btn-click-simple js-edit-btn';
+//     editButton.addEventListener("click", function() {
+//         editElement(listItem);
+//     });
+//     listItem.appendChild(editButton);
 
-    function numberOfResponsibilities() {
-        let existingCountElement = info.querySelector('.js-responsibility-count');
-        if (!existingCountElement) {
-            existingCountElement = document.createElement('div');
-            existingCountElement.className = "js-responsibility-count";
-            info.appendChild(existingCountElement);
-        }
-        if (listForAllElementsInLists.length === 0) {
-            existingCountElement.style.display = "none";
-        } else {
-            existingCountElement.innerHTML = `Duties: ${listForAllElementsInLists.length}`;
-        }
-    }
+//     let index = Array.from(listElements.children).indexOf(listItem);
+//     listForAllElementsInLists[index] = newValue;
+// }
+
+//     function numberOfResponsibilities() {
+//         let existingCountElement = info.querySelector('.js-responsibility-count');
+//         if (!existingCountElement) {
+//             existingCountElement = document.createElement('div');
+//             existingCountElement.className = "js-responsibility-count";
+//             info.appendChild(existingCountElement);
+//         }
+//         if (listForAllElementsInLists.length === 0) {
+//             existingCountElement.style.display = "none";
+//         } else {
+//             existingCountElement.innerHTML = `Duties: ${listForAllElementsInLists.length}`;
+//         }
+//     }
 
     function emptylist() {
         if (listForAllElementsInLists.length === 0) {
