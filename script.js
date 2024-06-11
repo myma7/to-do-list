@@ -9,72 +9,54 @@ document.addEventListener("DOMContentLoaded", function() {
 
     let listForAllElementsInLists = [];
 
+    function createListItem(text) {
+        let createElementLiForList = document.createElement("li");
+        createElementLiForList.className = "single-element";
+    
+        let textDiv = document.createElement("div");
+        let buttonsDiv = document.createElement("div");
+    
+        textDiv.classList.add("element-div");
+        buttonsDiv.classList.add("element-div-2");
+    
+        textDiv.innerHTML = `${text}`;
+        buttonsDiv.innerHTML = `
+            <button class="btn-click-simple js-done-btn">✅</button> 
+            <button class="btn-click-simple js-edit-btn">✏️</button>
+            <button class="btn-click-simple js-remove-btn">❌</button>
+        `;
+    
+        createElementLiForList.appendChild(textDiv);
+        createElementLiForList.appendChild(buttonsDiv);
+    
+        return createElementLiForList;
+    }
+    
     function addRandomElements() {
         const elements = ["Tidy up the clothes", "Take out the trash", "Wash the dishes", "Spread the laundry"];
         listForAllElementsInLists.push(...elements);
-
+    
         for (let i = 0; i < elements.length; i++) {
-            let createElementLiForList = document.createElement("li");
-            createElementLiForList.className = "single-element";
-
-            let textDiv = document.createElement("div");
-            let buttonsDiv = document.createElement("div");
-    
-            textDiv.classList.add("element-div");
-            buttonsDiv.classList.add("element-div-2");
-    
-            textDiv.innerHTML = `${elements[i]}`;
-            buttonsDiv.innerHTML = `
-                <button class="btn-click-simple js-done-btn">✅</button> 
-                <button class="btn-click-simple js-edit-btn">✏️</button>
-                <button class="btn-click-simple js-remove-btn">❌</button>
-            `;
-    
-            createElementLiForList.appendChild(textDiv);
-            createElementLiForList.appendChild(buttonsDiv);
-    
-            listElements.appendChild(createElementLiForList);
+            let listItem = createListItem(elements[i]);
+            listElements.appendChild(listItem);
         }
-
-        
+    
         emptylist();
         numberOfResponsibilities();
     }
-
+    
     function addItemToList() {
         let newItem = searchBar.value.trim();
         if (newItem) {
             listForAllElementsInLists.push(newItem);
-    
-            let createElementLiForList = document.createElement("li");
-            createElementLiForList.className = "single-element";
-    
-            let textDiv = document.createElement("div");
-            let buttonsDiv = document.createElement("div");
-    
-            textDiv.classList.add("element-div");
-            buttonsDiv.classList.add("element-div-2");
-    
-            textDiv.innerHTML = `${newItem}`;
-            buttonsDiv.innerHTML = `
-                <button class="btn-click-simple js-done-btn">✅</button> 
-                <button class="btn-click-simple js-edit-btn">✏️</button>
-                <button class="btn-click-simple js-remove-btn">❌</button>
-            `;
-    
-            createElementLiForList.appendChild(textDiv);
-            createElementLiForList.appendChild(buttonsDiv);
-    
-            listElements.appendChild(createElementLiForList);
             searchBar.value = "";
-            searchBar.focus();
     
-            emptylist();
-            numberOfResponsibilities();
+            let listItem = createListItem(newItem);
+            listElements.appendChild(listItem);
         }
     }
     
-
+    
     function doneElement(button) {
         let listItem = button.closest("li");
         let textElement = listItem.querySelector('.element-div');
@@ -249,6 +231,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     form.addEventListener("submit", function(event) {
         event.preventDefault();
+        
         addItemToList();
     });
 
