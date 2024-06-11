@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!listItem.querySelector('.js-undo-btn')) {
             let undoButton = document.createElement("button");
             undoButton.textContent = "↩️";
-            undoButton.className = 'btn-click js-undo-btn';
+            undoButton.className = 'btn-click js-undo-btn btn-click-simples';
     
             undoButton.addEventListener("click", function() {
                 textElement.style.textDecoration = "none";
@@ -120,73 +120,76 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-//     function editElement(listItem) {
-//         let doneButton = listItem.querySelector('.js-done-btn');
-//         let removeButton = listItem.querySelector('.js-remove-btn');
-//         doneButton.style.display = 'none';
-//         removeButton.style.display = 'none';
+    function editElement(button) {
+        let listItem = button.closest("li");
+        let textElement = listItem.querySelector('.element-div');
     
-//         let existingUndoButton = listItem.querySelector('.js-undo-btn');
-//         if (existingUndoButton) {
-//             listItem.removeChild(existingUndoButton);
-//         }
+        let currentText = textElement.textContent.trim();
     
-//         let currentText = listItem.innerText.replace(/✅|✏️|❌|↩️/g, '').trim();
+        let doneButton = listItem.querySelector('.js-done-btn');
+        let removeButton = listItem.querySelector('.js-remove-btn');
+        doneButton.style.display = 'none';
+        removeButton.style.display = 'none';
     
-//         let input = document.createElement('input');
-//         input.type = 'text';
-//         input.value = currentText;
+        let input = document.createElement('input');
+        input.type = 'text';
+        input.value = currentText;
     
-//         listItem.innerHTML = '';
-//         listItem.appendChild(input);
+        listItem.innerHTML = '';
+        listItem.appendChild(input);
     
-//         let saveButton = document.createElement('button');
-//         saveButton.innerText = 'save';
-//         saveButton.className = 'btn-click js-save-btn';
-//         saveButton.addEventListener("click", function() {
-//             saveEdit(listItem, input, doneButton, removeButton);
-//         });
-//         listItem.appendChild(saveButton);
-        
-//     }
+        let saveButton = document.createElement('button');
+        saveButton.innerText = 'save';
+        saveButton.className = 'btn-click js-save-btn';
+        saveButton.addEventListener("click", function() {
+            saveEdit(listItem, input, doneButton, removeButton);
+        });
+        listItem.appendChild(saveButton);
+    }
     
-//    function saveEdit(listItem, input, doneButton, removeButton) {
-//     let newValue = input.value;
-
-//     let newText = document.createTextNode(newValue);
-//     listItem.innerHTML = '';
-//     listItem.appendChild(newText);
-//     listItem.appendChild(doneButton);
-//     listItem.appendChild(removeButton);
-
-//     doneButton.style.display = 'inline';
-//     removeButton.style.display = 'inline';
-
-//     let editButton = document.createElement('button');
-//     editButton.innerText = '✏️';
-//     editButton.className = 'btn-click-simple js-edit-btn';
-//     editButton.addEventListener("click", function() {
-//         editElement(listItem);
-//     });
-//     listItem.appendChild(editButton);
-
-//     let index = Array.from(listElements.children).indexOf(listItem);
-//     listForAllElementsInLists[index] = newValue;
-// }
-
-//     function numberOfResponsibilities() {
-//         let existingCountElement = info.querySelector('.js-responsibility-count');
-//         if (!existingCountElement) {
-//             existingCountElement = document.createElement('div');
-//             existingCountElement.className = "js-responsibility-count";
-//             info.appendChild(existingCountElement);
-//         }
-//         if (listForAllElementsInLists.length === 0) {
-//             existingCountElement.style.display = "none";
-//         } else {
-//             existingCountElement.innerHTML = `Duties: ${listForAllElementsInLists.length}`;
-//         }
-//     }
+    
+    function saveEdit(listItem, input, doneButton, removeButton) {
+        let newValue = input.value;
+    
+        let newTextDiv = document.createElement('div');
+        newTextDiv.classList.add('element-div');
+        newTextDiv.textContent = newValue;
+    
+        listItem.innerHTML = '';
+        listItem.appendChild(newTextDiv);
+       
+    
+        doneButton.style.display = 'inline';
+        removeButton.style.display = 'inline';
+    
+        let editButton = document.createElement('button');
+        editButton.innerText = '✏️';
+        editButton.className = 'btn-click-simple js-edit-btn';
+        editButton.addEventListener("click", function() {
+            editElement(listItem);
+        });
+        listItem.appendChild(doneButton);
+      
+        listItem.appendChild(editButton);
+        listItem.appendChild(removeButton);
+    
+        let index = Array.from(listElements.children).indexOf(listItem);
+        listForAllElementsInLists[index] = newValue;
+    }
+    
+    function numberOfResponsibilities() {
+        let existingCountElement = info.querySelector('.js-responsibility-count');
+        if (!existingCountElement) {
+            existingCountElement = document.createElement('div');
+            existingCountElement.className = "js-responsibility-count";
+            info.appendChild(existingCountElement);
+        }
+        if (listForAllElementsInLists.length === 0) {
+            existingCountElement.style.display = "none";
+        } else {
+            existingCountElement.innerHTML = `Duties: ${listForAllElementsInLists.length}`;
+        }
+    }
 
     function emptylist() {
         if (listForAllElementsInLists.length === 0) {

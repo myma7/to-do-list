@@ -125,6 +125,13 @@ h1 {
   color: black;
 }
 
+
+
+.js-undo-btn:hover {
+  @include color-properties(null, rgb(185, 72, 121));
+  padding: 8px;
+}
+
 input {
   @include font-roboto-condensed;
   border: none;
