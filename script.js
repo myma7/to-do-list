@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", function() {
             let listItem = createListItem(newItem);
             listElements.appendChild(listItem);
         }
+        searchForItem();
     }
     
     
