@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
             let listItem = createListItem(newItem);
             listElements.appendChild(listItem);
+            emptylist();
         }
         searchForItem();
     }
@@ -142,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function() {
     
         listItem.innerHTML = '';
         listItem.appendChild(newTextDiv);
-       
     
         doneButton.style.display = 'inline';
         removeButton.style.display = 'inline';
@@ -172,6 +172,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (listForAllElementsInLists.length === 0) {
             existingCountElement.style.display = "none";
         } else {
+            console.log(listForAllElementsInLists);
             existingCountElement.innerHTML = `Duties: ${listForAllElementsInLists.length}`;
         }
     }
