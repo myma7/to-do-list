@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
             listElements.appendChild(listItem);
         }
 
+        emptylist();
         numberOfResponsibilities();
     }
 
@@ -67,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 let listItem = createListItem(listForAllElementsInLists[i]);
                 listElements.appendChild(listItem);
             }
-
+            emptylist();
             numberOfResponsibilities();
         }
     }
@@ -98,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         listItem.remove();
         listForAllElementsInLists = listForAllElementsInLists.filter(item => item !== itemText);
+        emptylist();
 
         numberOfResponsibilities();
     }
@@ -182,6 +184,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
+    function emptylist() {
+        if (listForAllElementsInLists.length === 0) {
+            info.innerHTML = 'Your to-do list is empty!';
+            info.style.display = "flex";
+            info.style.justifyContent = "center";
+            info.style.color = "red";
+        } else {
+            info.innerHTML = '';
+        }
+        numberOfResponsibilities();
+    }
+    
     function sortingElement() {
         let sortButton = document.createElement("button");
         sortButton.textContent = "Sort";
