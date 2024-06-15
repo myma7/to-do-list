@@ -52,27 +52,37 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!Array.isArray(list)) {
             throw new TypeError('Input must be an array');
         }
-
-        return [...new Set(list)];
+    
+        return Array.from(new Set(list));
     }
-
+    
     function addItemToList() {
         let newItem = searchBar.value.trim();
         if (newItem) {
-            listForAllElementsInLists.push(newItem);
-            listForAllElementsInLists = removeDuplicates(listForAllElementsInLists);
-            searchBar.value = "";
-
-            listElements.innerHTML = '';
-            for (let i = 0; i < listForAllElementsInLists.length; i++) {
-                let listItem = createListItem(listForAllElementsInLists[i]);
-                listElements.appendChild(listItem);
+            if (!listForAllElementsInLists.includes(newItem)) {
+                listForAllElementsInLists.push(newItem);
+    
+                listForAllElementsInLists.sort();
+    
+                searchBar.value = "";
+    
+                listElements.innerHTML = '';
+                listForAllElementsInLists.forEach(item => {
+                    let listItem = createListItem(item);
+                    listElements.appendChild(listItem);
+                });
+    
+                emptylist();
+                numberOfResponsibilities();
+            } else {
+                info.innerHTML = 'This item already exists!';
+                info.style.display = "flex";
+                info.style.justifyContent = "center";
+                info.style.color = "red";
             }
-            emptylist();
-            numberOfResponsibilities();
         }
     }
-
+    
     function doneElement(button) {
         let listItem = button.closest("li");
         let textElement = listItem.querySelector('.element-div');
