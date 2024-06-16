@@ -197,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function() {
             existingCountElement.style.display = "none";
         } else {
             existingCountElement.style.display = "block";
-            existingCountElement.innerHTML = `Duties: ${listForAllElementsInLists.length}`;
+            existingCountElement.innerHTML = `Number of duties: ${listForAllElementsInLists.length}`;
         }
     }
 
