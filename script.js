@@ -140,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
         listItem.appendChild(saveButton);
     }
+
     function saveEdit(listItem, input, doneButton, removeButton) {
         let newValue = input.value.trim();
     
@@ -185,7 +186,6 @@ document.addEventListener("DOMContentLoaded", function() {
         listForAllElementsInLists[index] = newValue;
     }
     
-
     function numberOfResponsibilities() {
         let existingCountElement = info.querySelector('.js-responsibility-count');
         if (!existingCountElement) {
