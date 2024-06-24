@@ -59,8 +59,8 @@ h1 {
   h1{
     font-size: 32px;
   }
-}
 
+}
 
 .main-container {
   display: flex;
@@ -149,6 +149,8 @@ h1 {
     font-size: 20px;
   }
 }
+
+
 
 .btn-search-add {
   @include common-button-styles;

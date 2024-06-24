@@ -58,9 +58,29 @@ document.addEventListener("DOMContentLoaded", function() {
     
     function addItemToList() {
         let newItem = searchBar.value.trim();
+        
+        if (newItem.length > 20) {
+            info.innerHTML = 'Item length exceeds 20 characters!';
+            info.style.display = "flex";
+            info.style.justifyContent = "center";
+            info.style.color = "red";
+            return;
+        }
+        
         if (newItem) {
+            if (listForAllElementsInLists.length >= 20) {
+                info.innerHTML = 'Maximum number of items (20) reached!';
+                info.style.display = "flex";
+                info.style.justifyContent = "center";
+                info.style.color = "red";
+                return; 
+            }
+    
             if (!listForAllElementsInLists.includes(newItem)) {
                 listForAllElementsInLists.push(newItem);
+    
+                info.innerHTML = '';
+                info.style.display = "none";
     
                 listForAllElementsInLists.sort();
     
@@ -82,6 +102,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
     }
+    
+    
     
     function doneElement(button) {
         let listItem = button.closest("li");
@@ -127,6 +149,18 @@ document.addEventListener("DOMContentLoaded", function() {
     
         let input = document.createElement('input');
         input.type = 'text';
+        
+        input.maxLength = 20;
+        
+        if (currentText.length > 20) {
+            currentText = currentText.substring(0, 20);
+            info.innerHTML = 'Maximum number of items (20) reached!';
+            info.style.display = "flex";
+            info.style.justifyContent = "center";
+            info.style.color = "red";
+            return;
+        }
+        
         input.value = currentText;
     
         listItem.replaceChild(input, textElement);
@@ -140,6 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
         listItem.appendChild(saveButton);
     }
+    
 
     function saveEdit(listItem, input, doneButton, removeButton) {
         let newValue = input.value.trim();
